@@ -1,5 +1,15 @@
 const Joi = require("joi");
 
+module.exports.orderSchema = Joi.object({
+    order: Joi.object({
+        name: Joi.string().required(),
+        qty: Joi.number().positive().required(),
+        price: Joi.number().positive().required(),
+        mode: Joi.string().valid("BUY", "SELL", "buy", "sell").insensitive().required(),
+    }).required().unknown(true),
+    clientId: Joi.string().optional().allow(""),
+}).unknown(true);
+
 module.exports.positionSchema = Joi.object({
     product: Joi.string().required(),
     name: Joi.string().required(),

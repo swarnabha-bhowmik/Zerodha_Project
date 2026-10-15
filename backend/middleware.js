@@ -5,10 +5,12 @@ const jwt = require("jsonwebtoken");
 
 module.exports.validateOrder = (req, res, next) => {
     const payload = req.body.order ? req.body : { order: req.body };
-    const { error } = orderSchema.validate(payload);
-    if (error) {
-        const errMsg = error.details.map((el) => el.message).join(", ");
-        return next(new ExpressError(errMsg, 400));
+    if (orderSchema && typeof orderSchema.validate === "function") {
+        const { error } = orderSchema.validate(payload);
+        if (error) {
+            const errMsg = error.details.map((el) => el.message).join(", ");
+            return next(new ExpressError(errMsg, 400));
+        }
     }
     next();
 };
