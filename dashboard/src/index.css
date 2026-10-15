@@ -1,0 +1,353 @@
+@import url('https://fonts.googleapis.com/css2?family=Climate+Crisis:YEAR@1979&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Outfit:wght@100..900&family=Plus+Jakarta+Sans:wght@200..800&display=swap');
+
+h1, p, a
+{
+    font-family: "Open Sans", sans-serif;
+}
+.navbar-nav .nav-link
+{
+    font-size: 12px;
+    font-weight: 400;
+    color: rgb(68, 68, 68);
+}
+.navbar-nav .nav-link:hover
+{
+    color: rgb(255, 87, 34);
+}
+.navbar-nav .nav-link.active
+{
+    font-weight: 700;
+    color: rgb(255, 87, 34);
+}
+.dropdown-item
+{
+    font-size: 13px;
+    color: rgb(68, 68, 68);
+}
+.btn-outline-secondary:hover,
+.btn-outline-secondary:focus,
+.btn-outline-secondary:active,
+.btn-outline-secondary.active,
+.btn-outline-secondary.dropdown-toggle.show
+{
+    background-color: transparent !important;
+    color: #6c757d !important;
+    border-color: #6c757d !important;
+    box-shadow: none !important;
+}
+.dropdown-menu .dropdown-item:hover,
+.dropdown-menu .dropdown-item:focus
+{
+    color: rgb(255, 87, 34) !important;
+}
+
+/* Order & Holdings Table (Zerodha Kite style) */
+.order-table {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 10px;
+}
+
+.order-table table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: "Open Sans", sans-serif;
+    font-size: 13px;
+}
+
+.order-table th {
+    font-size: 12px;
+    font-weight: 400;
+    color: #9b9b9b;
+    padding: 12px 16px;
+    border-bottom: 1px solid #eee;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.order-table th:first-child {
+    text-align: left;
+}
+
+.order-table td {
+    padding: 12px 16px;
+    color: #444;
+    border-bottom: 1px solid #f2f2f2;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.order-table td:first-child {
+    text-align: left;
+    font-weight: 500;
+}
+
+.order-table tr.item {
+    transition: background-color 0.15s ease;
+}
+
+.order-table tr.item:hover {
+    background-color: #fafafa;
+}
+
+.profit {
+    color: #4caf50 !important;
+}
+
+.loss {
+    color: #df514c !important;
+}
+
+/* Watchlist & StockItems (Zerodha Kite style) */
+.watchlist-list {
+    margin: 12px 0 0 0;
+    padding: 0;
+}
+
+.watchlist-item {
+    position: relative;
+    padding: 10px 14px;
+    border-bottom: 1px solid #f1f1f1;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.watchlist-item:hover {
+    background-color: #fafafa;
+}
+
+.watchlist-item .item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.watchlist-item .stock-name {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.watchlist-item .item-info {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.watchlist-item .percent {
+    font-size: 11px;
+    color: #9b9b9b;
+}
+
+.watchlist-item .arrow-icon {
+    font-size: 16px !important;
+}
+
+.watchlist-item .price {
+    font-size: 13px;
+    font-weight: 500;
+    color: #444;
+    min-width: 55px;
+    text-align: right;
+}
+
+/* Hover Actions in Watchlist */
+.watchlist-item .actions {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #fafafa;
+    padding-left: 10px;
+    box-shadow: -8px 0 10px rgba(250, 250, 250, 0.95);
+    z-index: 2;
+}
+
+.watchlist-item .actions .buy {
+    background-color: #4184f3;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    cursor: pointer;
+    transition: background-color 0.15s;
+}
+
+.watchlist-item .actions .buy:hover {
+    background-color: #2b70dc;
+}
+
+.watchlist-item .actions .sell {
+    background-color: #ff5722;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    cursor: pointer;
+    transition: background-color 0.15s;
+}
+
+.watchlist-item .actions .sell:hover {
+    background-color: #e64a19;
+}
+
+.watchlist-item .actions .action {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 3px;
+    padding: 3px 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    height: 25px;
+    transition: all 0.15s;
+}
+
+.watchlist-item .actions .action:hover {
+    background-color: #f1f1f1;
+    border-color: #bbb;
+    color: #333;
+}
+
+.watchlist-item .actions .action .icon {
+    font-size: 15px !important;
+}
+
+/* Funds Page Styles (Zerodha Kite style) */
+.funds {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #eee;
+}
+
+.funds p {
+    margin: 0;
+    font-size: 13px;
+    color: #666;
+}
+
+.btn-solid {
+    display: inline-block;
+    padding: 8px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 3px;
+    text-decoration: none;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.theme-primary {
+    background-color: #4184f3;
+    color: #fff !important;
+}
+
+.theme-primary:hover {
+    background-color: #2b70dc;
+    color: #fff !important;
+}
+
+.theme-success {
+    background-color: #4caf50;
+    color: #fff !important;
+}
+
+.theme-success:hover {
+    background-color: #3d8b40;
+    color: #fff !important;
+}
+
+.btn-blue {
+    background-color: #4184f3;
+    color: #fff !important;
+    font-size: 13px;
+    padding: 8px 18px;
+    border-radius: 3px;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-block;
+    border: none;
+    transition: background-color 0.15s ease;
+}
+
+.btn-blue:hover {
+    background-color: #2b70dc;
+    color: #fff !important;
+}
+
+.funds-container .data,
+.funds-data-table .data,
+div.table .data {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 7px 0;
+    font-size: 13px;
+    border-bottom: none;
+}
+
+.funds-container .data p,
+.funds-data-table .data p,
+div.table .data p {
+    margin: 0;
+    color: #666;
+}
+
+.funds-container .data p:last-child,
+.funds-data-table .data p:last-child,
+div.table .data p:last-child {
+    color: #333;
+    font-weight: 500;
+}
+
+.funds-container .data p.imp,
+.funds-data-table .data p.imp,
+div.table .data p.imp {
+    font-size: 15px;
+    font-weight: 600;
+    color: #333;
+}
+
+.funds-container .data p.imp.colored,
+.funds-data-table .data p.imp.colored,
+div.table .data p.imp.colored {
+    font-size: 28px;
+    font-weight: 400;
+    color: #4184f3;
+}
+
+div.table hr {
+    margin: 10px 0;
+    border-color: #eee;
+    opacity: 0.6;
+}
+
+.commodity {
+    text-align: center;
+    padding: 40px 20px;
+    border: 1px dashed #e0e0e0;
+    border-radius: 4px;
+    margin-top: 15px;
+    background-color: #fafafa;
+}
+
+.commodity p {
+    color: #888;
+    font-size: 13px;
+    margin-bottom: 16px;
+}
