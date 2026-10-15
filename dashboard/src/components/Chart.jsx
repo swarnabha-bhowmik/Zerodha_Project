@@ -38,12 +38,12 @@ const defaultOptions = {
     },
 };
 
-export function Chart({ data, options = defaultOptions }) {
+export function Chart({ data, options = defaultOptions, height = "260px" }) {
     if (!data || !data.datasets || data.datasets.length === 0) {
         return null;
     }
     return (
-        <div style={{ height: "260px", width: "100%", position: "relative" }}>
+        <div style={{ height: height, width: "100%", position: "relative" }}>
             <Doughnut data={data} options={options} />
         </div>
     );
