@@ -134,6 +134,12 @@ const Dashboard = () => {
     const chartOptions = {
         responsive: true,
         maintainAspectRatio: false,
+        layout: {
+            padding: {
+                top: 4,
+                bottom: 14,
+            },
+        },
         plugins: {
             legend: {
                 position: "right",
@@ -373,11 +379,11 @@ const Dashboard = () => {
 
                                 {/* Chart & Top Holdings Allocation */}
                                 <div className="row align-items-center">
-                                    <div className="col-12 col-lg-6">
-                                        <div style={{ height: "230px" }}>
+                                    <div className="col-12 col-lg-6 mb-3 mb-lg-0">
+                                        <div style={{ height: "215px", position: "relative" }} className="mb-2">
                                             <Chart data={chartData} options={chartOptions} />
                                         </div>
-                                        <p className="text-center text-muted small mt-2 mb-0" style={{ fontSize: "11px" }}>
+                                        <p className="text-center text-muted small mt-3 pt-2 mb-0" style={{ fontSize: "11px", fontWeight: "500", letterSpacing: "0.2px" }}>
                                             Top 5 holdings by portfolio weight
                                         </p>
                                     </div>
