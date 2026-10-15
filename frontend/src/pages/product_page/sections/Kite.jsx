@@ -1,3 +1,5 @@
+import { DASHBOARD_URL } from "../../../config";
+
 const Kite = () => {
     return (
         <div className = "container mt-5 pt-5 mb-5">
@@ -11,7 +13,7 @@ const Kite = () => {
                         Our ultra-fast flagship trading platform with streaming market data, advanced charts, an elegant UI, and more. Enjoy the Kite<br/>experience seamlessly on your Android and<br/>iOS devices.
                     </p>
                     <div className = "d-flex" style = {{gap: "70px"}}>
-                        <a href = "http://localhost:5174/" target = "_blank" rel = "noopener noreferrer">Try demo <i className="fa-solid fa-arrow-right stats-i" /></a>
+                        <a href = {DASHBOARD_URL} target = "_blank" rel = "noopener noreferrer">Try demo <i className="fa-solid fa-arrow-right stats-i" /></a>
                         <a href = "#">Learn more <i className="fa-solid fa-arrow-right stats-i" /></a>
                     </div>
                     <div className = "d-flex gap-5 mt-4">

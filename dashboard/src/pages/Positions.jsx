@@ -1,13 +1,14 @@
 import {useState, useEffect} from "react"
 import axios from "axios"
 import StockSection from "../components/StockSection.jsx"
+import { API_BASE_URL } from "../config"
 
 const Positions = () => {
     const [allPositions, setallPositions] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     useEffect(() => {
-        axios.get("http://localhost:8080/allPositions")
+        axios.get(`${API_BASE_URL}/allPositions`)
             .then((res) => {
                 setallPositions(res.data);
                 setLoading(false);

@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import StockSection from "../components/StockSection";
+import { API_BASE_URL } from "../config";
 
 const Orders = () => {
     const [allOrders, setAllOrders] = useState([]);
@@ -9,7 +10,7 @@ const Orders = () => {
 
     const fetchOrders = useCallback((isInitial = false) => {
         if (isInitial) setLoading(true);
-        axios.get("http://localhost:8080/allOrders")
+        axios.get(`${API_BASE_URL}/allOrders`)
             .then((res) => {
                 if (Array.isArray(res.data)) {
                     setAllOrders(res.data);

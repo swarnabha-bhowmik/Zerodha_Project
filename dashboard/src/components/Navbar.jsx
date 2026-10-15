@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react"
 import { NavLink, Link } from "react-router-dom"
 import axios from "axios"
+import { API_BASE_URL, DASHBOARD_URL, FRONTEND_URL } from "../config"
 
 const Navbar = () => {
     const [clientId, setClientId] = useState(() => {
@@ -29,7 +30,7 @@ const Navbar = () => {
             window.history.replaceState({}, document.title, window.location.pathname);
         }
 
-        axios.post("http://localhost:8080/verify", {}, { withCredentials: true })
+        axios.post(`${API_BASE_URL}/verify`, {}, { withCredentials: true })
             .then((res) => {
                 if (res.data && res.data.status) {
                     setIsLoggedIn(true);
@@ -66,7 +67,7 @@ const Navbar = () => {
     const handleLogout = async () => {
         setIsDropdownOpen(false);
         try {
-            await axios.post("http://localhost:8080/logout", {}, { withCredentials: true });
+            await axios.post(`${API_BASE_URL}/logout`, {}, { withCredentials: true });
         } catch {
             // Ignore error if server is unreachable
         }
@@ -75,35 +76,35 @@ const Navbar = () => {
         localStorage.removeItem("userName");
         localStorage.removeItem("userEmail");
         localStorage.removeItem("userFunds");
-        window.location.href = "http://localhost:5174";
+        window.location.href = DASHBOARD_URL;
     };
 
     return (
         <>
             <nav className="navbar navbar-expand-lg border-bottom bg-white" style={{ minHeight: "45px" }}>
-                <div className="container-fluid" style={{ maxWidth: "94%", paddingLeft: 0, paddingRight: 0 }}>
-                    <div className="d-flex align-items-center border-end" style={{ flex: "0 0 33.333%", height: "30px", paddingLeft: "12px" }}>
-                        <p className="my-auto" style={{ fontSize: "12px", color: "rgb(68, 68, 68)", fontWeight: "600" }}>
+                <div className="container-fluid nav-container" style={{ maxWidth: "94%", paddingLeft: 0, paddingRight: 0 }}>
+                    <div className="nav-indices d-flex align-items-center border-end" style={{ height: "30px", paddingLeft: "12px" }}>
+                        <p className="my-auto text-nowrap" style={{ fontSize: "12px", color: "rgb(68, 68, 68)", fontWeight: "600" }}>
                             <a className="text-decoration-none text-reset" href="#">NIFTY 50</a> 22520.45
                         </p>
-                        <p className="my-auto ps-1" style={{ fontSize: "10.8px", fontWeight: "600", color: "rgb(155, 155, 155)" }}>
+                        <p className="my-auto ps-1 text-nowrap" style={{ fontSize: "10.8px", fontWeight: "600", color: "rgb(155, 155, 155)" }}>
                             -23.35 (-0.10%)
                         </p>
-                        <p className="my-auto ps-3" style={{ fontSize: "12px", color: "rgb(68, 68, 68)", fontWeight: "600" }}>
+                        <p className="my-auto ps-3 text-nowrap d-none d-md-inline" style={{ fontSize: "12px", color: "rgb(68, 68, 68)", fontWeight: "600" }}>
                             <a className="text-decoration-none text-reset" href="#">SENSEX</a>  72226.85
                         </p>
-                        <p className="my-auto ps-1 pe-2" style={{ fontSize: "10.8px", fontWeight: "600", color: "rgb(155, 155, 155)" }}>
+                        <p className="my-auto ps-1 pe-2 text-nowrap d-none d-md-inline" style={{ fontSize: "10.8px", fontWeight: "600", color: "rgb(155, 155, 155)" }}>
                             -242.27 (-0.33%)
                         </p>
                     </div>
-                    <img className="ps-2 pe-2" src="/images/kite-logo.svg" style={{ width: "38px" }} alt="Kite logo" />
-                    <div className="dropdown ms-3">
+                    <img className="ps-2 pe-2 nav-logo" src="/images/kite-logo.svg" style={{ width: "38px" }} alt="Kite logo" />
+                    <div className="dropdown ms-2 ms-md-3 d-none d-sm-block nav-workspace-dropdown">
                         <button
                             className="btn btn-outline-secondary btn-sm dropdown-toggle d-flex justify-content-between align-items-center"
                             type="button"
                             data-bs-toggle="dropdown"
                             aria-expanded="false"
-                            style = {{fontSize: "10.8px", color: "rgb(68, 68, 68)", width: "170px", height: "30px", backgroundColor: "#fff"}}
+                            style = {{fontSize: "10.8px", color: "rgb(68, 68, 68)", width: "150px", height: "30px", backgroundColor: "#fff"}}
                         >
                             Default
                         </button>
@@ -204,7 +205,7 @@ const Navbar = () => {
                                                 </button>
                                             ) : (
                                                 <a
-                                                    href="http://localhost:5173/login"
+                                                    href={`${FRONTEND_URL}/login`}
                                                     className="dropdown-item d-flex align-items-center gap-2 py-2 text-primary"
                                                     style={{ fontSize: "13px", cursor: "pointer" }}
                                                     onClick={() => setIsDropdownOpen(false)}

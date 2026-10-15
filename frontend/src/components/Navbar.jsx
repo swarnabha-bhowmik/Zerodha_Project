@@ -4,8 +4,8 @@ const Navbar = () => {
         return (
             <nav className="navbar navbar-expand-lg border-bottom bg-white sticky-top">
                 <div className="container py-2">
-                    <Link className="navbar-brand ms-5" to="/">
-                        <img src="/images/logo.svg" style={{ width: "24.7%" }} alt="Zerodha Logo" />
+                    <Link className="navbar-brand ms-2 ms-lg-5" to="/">
+                        <img src="/images/logo.svg" style={{ width: "135px", maxWidth: "100%" }} alt="Zerodha Logo" />
                     </Link>
                     <button 
                         className="navbar-toggler" 
@@ -18,7 +18,7 @@ const Navbar = () => {
                     >
                         <span className="navbar-toggler-icon"></span>
                     </button>
-                    <div className="collapse navbar-collapse me-4" id="navbarNav">
+                    <div className="collapse navbar-collapse me-lg-4" id="navbarNav">
                         <ul className="navbar-nav ms-auto">
                             <li className="nav-item">
                                 <NavLink className="nav-link" to="/login">Login</NavLink>

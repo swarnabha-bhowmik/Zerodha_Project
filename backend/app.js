@@ -18,9 +18,34 @@ const {validateOrder, validateUser, userVerification, isLoggedIn} = require("./m
 const { createSecretToken } = require("./utils/SecretToken.js");
 const jwt = require("jsonwebtoken");
 
+const isProduction = process.env.NODE_ENV === "production";
+const cookieOptions = {
+  httpOnly: false,
+  sameSite: isProduction ? "none" : "lax",
+  secure: isProduction ? true : false,
+};
+
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://localhost:5174",
+  "http://localhost:3000",
+  process.env.FRONTEND_URL,
+  process.env.DASHBOARD_URL,
+].filter(Boolean);
+
 const app = express();
 app.use(cors({
-  origin: ["http://localhost:5173", "http://localhost:5174", "http://localhost:3000"],
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+    if (
+      allowedOrigins.includes(origin) ||
+      origin.endsWith(".vercel.app") ||
+      !isProduction
+    ) {
+      return callback(null, true);
+    }
+    return callback(null, true);
+  },
   credentials: true,
 }));
 app.use(bodyParser.json());
@@ -40,6 +65,14 @@ main()
 async function main() {
   await mongoose.connect(dbURL);
 }
+
+app.get("/", (req, res) => {
+  res.status(200).json({ status: "ok", message: "Zerodha Replica API is active and running!" });
+});
+
+app.get("/health", (req, res) => {
+  res.status(200).json({ status: "healthy", timestamp: new Date().toISOString() });
+});
 
 app.get("/allHoldings", wrapAsync(async(req, res) => {
   let allHoldings = await Holding.find({});
@@ -85,11 +118,7 @@ app.post("/signup", validateUser, wrapAsync(async(req, res, next) => {
       pin: pin || "123456",
     });
     const token = createSecretToken(user._id);
-    res.cookie("token", token, {
-      httpOnly: false,
-      sameSite: "lax",
-      secure: false,
-    });
+    res.cookie("token", token, cookieOptions);
     res.status(201).json({
       message: "User signed in successfully",
       success: true,
@@ -161,11 +190,7 @@ app.post("/login", wrapAsync(async(req, res, next) => {
 
     // Authentication succeeded: User has no PIN (password-only) OR 2FA PIN was verified
     const token = createSecretToken(user._id);
-    res.cookie("token", token, {
-      httpOnly: false,
-      sameSite: "lax",
-      secure: false,
-    });
+    res.cookie("token", token, cookieOptions);
 
     res.status(200).json({
       message: "User logged in successfully",
@@ -185,11 +210,7 @@ app.post("/login", wrapAsync(async(req, res, next) => {
 }));
 
 app.post("/logout", (req, res) => {
-  res.clearCookie("token", {
-    httpOnly: false,
-    sameSite: "lax",
-    secure: false,
-  });
+  res.clearCookie("token", cookieOptions);
   res.status(200).json({ success: true, message: "Logged out successfully" });
 });
 
@@ -237,11 +258,7 @@ app.post("/deleteAccount", isLoggedIn, wrapAsync(async (req, res) => {
     }
   }
   await User.findByIdAndDelete(user._id);
-  res.clearCookie("token", {
-    httpOnly: false,
-    sameSite: "lax",
-    secure: false,
-  });
+  res.clearCookie("token", cookieOptions);
   res.status(200).json({ success: true, message: "Account deleted successfully" });
 }));
 
@@ -251,5 +268,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log("Server is running on port 8080");
+  console.log(`Server is running on port ${PORT}`);
 });

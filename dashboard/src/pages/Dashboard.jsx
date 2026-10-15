@@ -4,6 +4,7 @@ import axios from "axios";
 import StockSection from "../components/StockSection";
 import { Chart } from "../components/Chart";
 import { holdings as initialHoldings, positions as initialPositions } from "../data.js";
+import { API_BASE_URL, FRONTEND_URL } from "../config";
 
 const Dashboard = () => {
     const [userName, setUserName] = useState(() => localStorage.getItem("userName") || "");
@@ -20,7 +21,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         // Verify user session & details
-        axios.post("http://localhost:8080/verify", {}, { withCredentials: true })
+        axios.post(`${API_BASE_URL}/verify`, {}, { withCredentials: true })
             .then((res) => {
                 if (res.data && res.data.status) {
                     setIsLoggedIn(true);
@@ -49,7 +50,7 @@ const Dashboard = () => {
             });
 
         // Fetch holdings from database or fallback to static
-        axios.get("http://localhost:8080/allHoldings")
+        axios.get(`${API_BASE_URL}/allHoldings`)
             .then((res) => {
                 if (Array.isArray(res.data) && res.data.length > 0) {
                     setAllHoldings(res.data);
@@ -60,7 +61,7 @@ const Dashboard = () => {
             });
 
         // Fetch positions from database or fallback to static
-        axios.get("http://localhost:8080/allPositions")
+        axios.get(`${API_BASE_URL}/allPositions`)
             .then((res) => {
                 if (Array.isArray(res.data) && res.data.length > 0) {
                     setAllPositions(res.data);
@@ -72,7 +73,7 @@ const Dashboard = () => {
 
         // Fetch recent orders
         const fetchOrders = () => {
-            axios.get("http://localhost:8080/allOrders")
+            axios.get(`${API_BASE_URL}/allOrders`)
                 .then((res) => {
                     if (Array.isArray(res.data)) {
                         setAllOrders(res.data);
@@ -200,7 +201,7 @@ const Dashboard = () => {
                                     <span className="small">You are currently in <strong>Demo Mode</strong>. Log in to access your personal account.</span>
                                 </div>
                                 <a
-                                    href="http://localhost:5173/login"
+                                    href={`${FRONTEND_URL}/login`}
                                     className="btn btn-sm btn-dark px-3 py-1 text-decoration-none"
                                     style={{ fontSize: "12px" }}
                                 >
@@ -344,7 +345,7 @@ const Dashboard = () => {
 
                                 {/* Summary Stats */}
                                 <div className="row g-3 mb-4">
-                                    <div className="col-4">
+                                    <div className="col-12 col-md-4">
                                         <div className="p-3 border rounded-2 bg-light">
                                             <p className="text-muted small mb-1">Total Investment</p>
                                             <h4 className="fw-bold mb-0" style={{ fontSize: "18px", color: "#444" }}>
@@ -352,7 +353,7 @@ const Dashboard = () => {
                                             </h4>
                                         </div>
                                     </div>
-                                    <div className="col-4">
+                                    <div className="col-12 col-md-4">
                                         <div className="p-3 border rounded-2 bg-light">
                                             <p className="text-muted small mb-1">Current Value</p>
                                             <h4 className="fw-bold mb-0" style={{ fontSize: "18px", color: "#444" }}>
@@ -360,7 +361,7 @@ const Dashboard = () => {
                                             </h4>
                                         </div>
                                     </div>
-                                    <div className="col-4">
+                                    <div className="col-12 col-md-4">
                                         <div className="p-3 border rounded-2 bg-light">
                                             <p className="text-muted small mb-1">Total Profit / Loss</p>
                                             <h4 className={`fw-bold mb-0 ${isOverallProfit ? "profit" : "loss"}`} style={{ fontSize: "18px" }}>

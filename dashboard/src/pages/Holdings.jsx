@@ -3,13 +3,14 @@ import axios from "axios"
 import StockSection from "../components/StockSection.jsx"
 import { Graph } from "../components/Graph.jsx"
 import { holdings } from "../data.js"
+import { API_BASE_URL } from "../config"
 
 const Holdings = () => {
     const [allHoldings, setallHoldings] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        axios.get("http://localhost:8080/allHoldings")
+        axios.get(`${API_BASE_URL}/allHoldings`)
             .then((res) => {
                 if (Array.isArray(res.data) && res.data.length > 0) {
                     setallHoldings(res.data);

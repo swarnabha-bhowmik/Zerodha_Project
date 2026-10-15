@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { API_BASE_URL, DASHBOARD_URL } from "../../config";
 
 const Login = () => {
     // Step 1: "credentials", Step 2: "2fa"
@@ -35,7 +36,7 @@ const Login = () => {
 
         try {
             const response = await axios.post(
-                "http://localhost:8080/login",
+                `${API_BASE_URL}/login`,
                 {
                     identifier: formData.identifier,
                     password: formData.password,
@@ -60,7 +61,7 @@ const Login = () => {
             // Case B: User has no PIN configured -> logged in directly via password
             setSuccess(`Welcome back, ${data.user?.fullName || "trader"}! Redirecting to Kite...`);
             setTimeout(() => {
-                window.location.href = `http://localhost:5174?clientId=${data.user?.clientId || ""}`;
+                window.location.href = `${DASHBOARD_URL}?clientId=${data.user?.clientId || ""}`;
             }, 1200);
         } catch (err) {
             setError(err.response?.data?.message || err.message || "Invalid credentials. Please try again.");
@@ -84,7 +85,7 @@ const Login = () => {
 
         try {
             const response = await axios.post(
-                "http://localhost:8080/login",
+                `${API_BASE_URL}/login`,
                 {
                     identifier: formData.identifier,
                     password: formData.password,
@@ -101,7 +102,7 @@ const Login = () => {
 
             setSuccess(`2FA Verified! Welcome, ${data.user?.fullName || "trader"}. Redirecting to Kite...`);
             setTimeout(() => {
-                window.location.href = `http://localhost:5174?clientId=${data.user?.clientId || ""}`;
+                window.location.href = `${DASHBOARD_URL}?clientId=${data.user?.clientId || ""}`;
             }, 1200);
         } catch (err) {
             setError(err.response?.data?.message || err.message || "Incorrect PIN. Please try again.");

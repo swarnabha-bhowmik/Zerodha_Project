@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { API_BASE_URL } from "../config";
 
 const Dialog = ({ onClose, stock, mode = "BUY" }) => {
     const isBuy = mode === "BUY";
@@ -27,7 +28,7 @@ const Dialog = ({ onClose, stock, mode = "BUY" }) => {
         try
         {
             const res = await axios.post(
-                "http://localhost:8080/newOrder",
+                `${API_BASE_URL}/newOrder`,
                 {
                     order: {
                         name: stock?.name,
@@ -74,7 +75,7 @@ const Dialog = ({ onClose, stock, mode = "BUY" }) => {
             onClick={onClose}
         >
             <div 
-                className="modal-dialog modal-dialog-centered" 
+                className="modal-dialog modal-dialog-centered mx-3 mx-sm-auto" 
                 onClick={(e) => e.stopPropagation()}
             >
                 <div className="modal-content overflow-hidden">

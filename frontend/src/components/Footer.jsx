@@ -5,8 +5,8 @@ const Footer = () => {
         <footer style = {{backgroundColor: "#FBFBFB"}}>
             <div className = "container border-top mt-5">
                 <div className = "row mt-4">
-                    <div className = "col-4 footer-logo">
-                        <img src = "/images/logo.svg" style = {{width: "50%" }}/>
+                    <div className = "col-12 col-lg-4 mb-4 mb-lg-0 footer-logo">
+                        <img src = "/images/logo.svg" style = {{width: "140px", maxWidth: "100%" }} alt="Zerodha Logo"/>
                         <p className = "text-muted mt-3 footer-img-p">&copy; 2010 - 2026, Zerodha Broking Ltd.<br/>All rights reserved</p>
                         <div className = "footer-logo-icons mb-4">
                             <a href = "#"><img src = "/images/twitter.png" alt = "Twitter / X" /></a>
@@ -24,7 +24,7 @@ const Footer = () => {
                             <a href = "#"><img src = "/images/appstoreBadge.svg" alt = "App Store" style = {{ height: "35px" }}/></a>
                         </div>
                     </div>
-                    <div className = "col-2">
+                    <div className = "col-6 col-sm-6 col-md-3 col-lg-2 mb-4 mb-lg-0">
                         <ul className = "list-unstyled">
                             <li>Account</li>
                             <li className = "mt-3"><Link to = "/signup" className = "text-muted">Open demat account</Link></li>
@@ -37,7 +37,7 @@ const Footer = () => {
                             <li className = "mt-3"><Link to = "#" className = "text-muted">MTF</Link></li>
                         </ul>
                     </div>
-                    <div className = "col-2">
+                    <div className = "col-6 col-sm-6 col-md-3 col-lg-2 mb-4 mb-lg-0">
                         <ul className = "list-unstyled">
                             <li>Support</li>
                             <li className = "mt-3"><Link to = "/support" className = "text-muted">Contact us</Link></li>
@@ -50,7 +50,7 @@ const Footer = () => {
                             <li className = "mt-3"><Link to = "#" className = "text-muted">Downloads</Link></li>
                         </ul>
                     </div>
-                    <div className = "col-2">
+                    <div className = "col-6 col-sm-6 col-md-3 col-lg-2 mb-4 mb-lg-0">
                         <ul className = "list-unstyled">
                             <li>Company</li>
                             <li className = "mt-3"><Link to = "/about" className = "text-muted">About</Link></li>
@@ -63,7 +63,7 @@ const Footer = () => {
                             <li className = "mt-3"><Link to = "#" className = "text-muted">Referral program</Link></li>
                         </ul>
                     </div>
-                    <div className = "col-2">
+                    <div className = "col-6 col-sm-6 col-md-3 col-lg-2 mb-4 mb-lg-0">
                         <ul className = "list-unstyled">
                             <li>Quick Links</li>
                             <li className = "mt-3"><Link to = "#" className = "text-muted">Upcoming IPOs</Link></li>
@@ -77,7 +77,7 @@ const Footer = () => {
                         </ul>
                     </div>
                 </div>
-                <div className = "mt-5 ms-5">
+                <div className = "mt-4 mt-md-5 px-2 px-md-4">
                     <p className = "footer-p">Zerodha Broking Limited: Member of NSE, BSE, MCX & MSEI – SEBI Registration no.: INZ000031633 CDSL/NSDL: Depository services through Zerodha Broking Limited – SEBI Registration no.: IN-DP-431-2019, CIN: U65929KA2018PLC116815, Registered Address: #153/154, 4th Cross, Dollars Colony, Opp. Clarence Public School, J.P Nagar 4th Phase, Bengaluru - 560078, Karnataka, India. For any complaints pertaining to securities broking please write to <a href = "#">complaints@zerodha.com</a>, for DP related to <a href = "#">dp@zerodha.com</a>. Please ensure you carefully read the Risk Disclosure Document as prescribed by SEBI | ICF<br /><br />
 
             Procedure to file a complaint on <a href = "#">SEBI SCORES/SMARTODR</a>: Register on SCORES portal & SMARTODR. Mandatory details for filing complaints on SCORES: Name, PAN, Address, Mobile Number, E-mail ID. Benefits: Effective Communication, Speedy redressal of grievances<br/><br />

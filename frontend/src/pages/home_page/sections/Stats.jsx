@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom'
+import { DASHBOARD_URL } from '../../../config'
 
 const Stats = () => {
     return (
-        <div className = "container mt-5">
-            <div className = "row p-5">
-                <div className = "col-lg-5 col-sm-2">
-                    <h2 className = "mb-5 fs-4">Trust with confidence</h2>
+        <div className = "container mt-4 mt-md-5">
+            <div className = "row p-3 p-md-5">
+                <div className = "col-12 col-lg-5 mb-4 mb-lg-0">
+                    <h2 className = "mb-4 mb-md-5 fs-4">Trust with confidence</h2>
                     <ul className = "list-unstyled">
                         <li className = "mb-4">
                             <h3 className = "fs-5">Customer-first always</h3>
@@ -25,11 +26,11 @@ const Stats = () => {
                         </li>
                     </ul>
                 </div>
-                <div className = "col-7 stats-right-col">
+                <div className = "col-12 col-lg-7 stats-right-col">
                     <img className = "stats-img" src = "/images/largestBroker.png" />
                     <div className = "mt-4 stats-a-div">
                         <Link to = "/products">Explore our products  <i className="fa-solid fa-arrow-right stats-i"></i></Link>
-                        <a href = "http://localhost:5174/" target = "_blank" rel = "noopener noreferrer">Try Kite demo  <i className="fa-solid fa-arrow-right"></i></a>
+                        <a href = {DASHBOARD_URL} target = "_blank" rel = "noopener noreferrer">Try Kite demo  <i className="fa-solid fa-arrow-right"></i></a>
                     </div>
                 </div>
             </div>

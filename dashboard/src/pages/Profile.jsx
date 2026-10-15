@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import StockSection from "../components/StockSection";
+import { API_BASE_URL, DASHBOARD_URL, FRONTEND_URL } from "../config";
 
 const Profile = () => {
     const [profile, setProfile] = useState({
@@ -32,7 +33,7 @@ const Profile = () => {
     const [deleteError, setDeleteError] = useState("");
 
     useEffect(() => {
-        axios.post("http://localhost:8080/verify", {}, { withCredentials: true })
+        axios.post(`${API_BASE_URL}/verify`, {}, { withCredentials: true })
             .then((res) => {
                 if (res.data && res.data.status) {
                     setIsLoggedIn(true);
@@ -58,7 +59,7 @@ const Profile = () => {
 
     const handleLogout = async () => {
         try {
-            await axios.post("http://localhost:8080/logout", {}, { withCredentials: true });
+            await axios.post(`${API_BASE_URL}/logout`, {}, { withCredentials: true });
         } catch {
             // ignore
         }
@@ -68,7 +69,7 @@ const Profile = () => {
         localStorage.removeItem("userEmail");
         localStorage.removeItem("userFunds");
         setIsLoggedIn(false);
-        window.location.href = "http://localhost:5174";
+        window.location.href = DASHBOARD_URL;
     };
 
     // Handle Change PIN
@@ -90,7 +91,7 @@ const Profile = () => {
         setPinLoading(true);
         try {
             const res = await axios.post(
-                "http://localhost:8080/changePin",
+                `${API_BASE_URL}/changePin`,
                 {
                     clientId: profile.clientId,
                     currentPin: pinForm.currentPin,
@@ -131,7 +132,7 @@ const Profile = () => {
         setPasswordLoading(true);
         try {
             const res = await axios.post(
-                "http://localhost:8080/changePassword",
+                `${API_BASE_URL}/changePassword`,
                 {
                     clientId: profile.clientId,
                     currentPassword: passwordForm.currentPassword,
@@ -160,7 +161,7 @@ const Profile = () => {
 
         try {
             const res = await axios.post(
-                "http://localhost:8080/deleteAccount",
+                `${API_BASE_URL}/deleteAccount`,
                 {
                     clientId: profile.clientId,
                     password: deletePassword,
@@ -177,7 +178,7 @@ const Profile = () => {
                 localStorage.removeItem("userFunds");
 
                 alert("Your Zerodha account has been deleted successfully.");
-                window.location.href = "http://localhost:5174";
+                window.location.href = DASHBOARD_URL;
             } else {
                 setDeleteError(res.data.message || "Failed to delete account.");
             }
@@ -244,7 +245,7 @@ const Profile = () => {
                                     </button>
                                 ) : (
                                     <a
-                                        href="http://localhost:5173/login"
+                                        href={`${FRONTEND_URL}/login`}
                                         className="btn btn-primary btn-sm px-3 d-flex align-items-center gap-2 text-white text-decoration-none"
                                         style={{ backgroundColor: "rgb(56, 126, 209)", borderColor: "rgb(56, 126, 209)" }}
                                     >
@@ -262,7 +263,7 @@ const Profile = () => {
                                     <span className="small">You are currently in guest / demo mode. Log in to your Zerodha account to manage credentials.</span>
                                 </div>
                                 <a
-                                    href="http://localhost:5173/login"
+                                    href={`${FRONTEND_URL}/login`}
                                     className="btn btn-sm btn-dark px-3 py-1 text-decoration-none"
                                     style={{ fontSize: "12px" }}
                                 >

@@ -350,4 +350,212 @@ div.table hr {
     color: #888;
     font-size: 13px;
     margin-bottom: 16px;
+}
+
+/* ========================================================
+   RESPONSIVE DESIGN (Tablets & Mobile Devices)
+   ======================================================== */
+
+/* Prevent horizontal overflow globally */
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Tablet & Mobile Breakpoint (<= 991.98px) */
+@media (max-width: 991.98px) {
+    /* Full width content container */
+    .container-fluid {
+        max-width: 100% !important;
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+    }
+
+    /* Stack 2-column dashboard layout (Watchlist on top, Main Content below) */
+    .row > .col-4.border-end {
+        width: 100% !important;
+        max-width: 100% !important;
+        flex: 0 0 100% !important;
+        border-right: none !important;
+        border-bottom: 2px solid #eef2f6 !important;
+        padding: 12px 14px 18px 14px !important;
+        background-color: #fafbfd;
+    }
+
+    .row > .col-8 {
+        width: 100% !important;
+        max-width: 100% !important;
+        flex: 0 0 100% !important;
+        padding-left: 14px !important;
+        padding-right: 14px !important;
+        padding-bottom: 30px !important;
+    }
+
+    /* Watchlist search bar takes full width */
+    .watchlist-search-group {
+        width: 100% !important;
+        margin-right: 0 !important;
+    }
+
+    /* Scrollable watchlist container on mobile so it doesn't take 1500px of vertical space */
+    .watchlist-list {
+        max-height: 270px;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        border: 1px solid #e9ecef;
+        border-radius: 6px;
+        background-color: #fff;
+    }
+
+    /* Hide redundant secondary pie chart from watchlist on mobile */
+    .watchlist-chart-container {
+        display: none !important;
+    }
+
+    /* Navbar Dropdown styling on collapse */
+    .navbar-collapse {
+        background-color: #ffffff;
+        padding: 14px 16px;
+        border-radius: 8px;
+        margin-top: 8px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        border: 1px solid #eee;
+    }
+
+    .navbar-nav {
+        align-items: flex-start !important;
+        gap: 8px !important;
+        width: 100%;
+    }
+
+    .navbar-nav .nav-link {
+        font-size: 14px !important;
+        padding: 8px 12px !important;
+        width: 100%;
+        border-radius: 4px;
+        transition: background-color 0.15s ease;
+    }
+
+    .navbar-nav .nav-link:hover,
+    .navbar-nav .nav-link.active {
+        background-color: #f8fbff;
+    }
+
+    /* Order, Holdings, and Positions tables smooth horizontal scroll */
+    .order-table {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin-top: 8px;
+        border: 1px solid #eee;
+        border-radius: 6px;
+        background: #fff;
+    }
+
+    .order-table table {
+        min-width: 600px;
+    }
+}
+
+/* Mobile Phones (<= 767.98px) */
+@media (max-width: 767.98px) {
+    /* Navbar indices compact sizing */
+    .nav-indices {
+        padding-left: 6px !important;
+        font-size: 11px !important;
+    }
+
+    .nav-indices p {
+        font-size: 11px !important;
+    }
+
+    /* Watchlist stock items on mobile */
+    .watchlist-item {
+        padding: 10px 12px;
+    }
+
+    /* Mobile stock action buttons (Buy/Sell) */
+    .watchlist-item .actions {
+        position: relative;
+        right: auto;
+        top: auto;
+        transform: none;
+        margin-top: 8px;
+        padding: 4px 0 0 0;
+        box-shadow: none;
+        background: transparent;
+        display: flex;
+        justify-content: flex-end;
+        gap: 6px;
+    }
+
+    .watchlist-item .actions .buy,
+    .watchlist-item .actions .sell {
+        padding: 6px 14px;
+        font-size: 12px;
+        border-radius: 4px;
+    }
+
+    /* Funds page header */
+    .funds {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .funds .d-flex {
+        width: 100%;
+    }
+
+    .funds .btn-solid {
+        flex: 1;
+        padding: 8px 12px;
+    }
+
+    /* Profile Page Header */
+    .border-bottom.pb-4.mb-4 > .d-flex {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 12px;
+    }
+
+    /* Large numbers font scaling */
+    .funds-container .data p.imp.colored,
+    .funds-data-table .data p.imp.colored,
+    div.table .data p.imp.colored {
+        font-size: 22px;
+    }
+
+    /* Touch buttons minimum target */
+    .btn, button.buy, button.sell {
+        min-height: 38px;
+    }
+
+    /* Dialog modal on mobile */
+    .modal-dialog {
+        margin: 12px !important;
+    }
+}
+
+/* Extra small screens (<= 480px) */
+@media (max-width: 480px) {
+    .nav-indices {
+        max-width: 130px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .nav-logo {
+        width: 32px !important;
+    }
+
+    .order-table th,
+    .order-table td {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
 }

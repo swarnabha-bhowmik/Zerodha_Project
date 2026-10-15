@@ -38,7 +38,11 @@ p
 }
 .btn-hero
 {
-    width: 15%;
+    display: inline-block;
+    width: auto;
+    min-width: 200px;
+    max-width: 280px;
+    padding: 10px 24px;
     margin: 0 auto;
     background-color: rgb(56, 126, 209) !important;
     border-color: rgb(56, 126, 209) !important;
@@ -57,6 +61,8 @@ p
 .hero-img
 {
     width: 70%;
+    max-width: 800px;
+    height: auto;
     margin: 0 auto;
 }
 
@@ -460,4 +466,220 @@ footer a:hover
 .support-quicklink-item:last-child {
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;
+}
+
+/* ========================================================
+   RESPONSIVE DESIGN (Tablets & Mobile Devices)
+   ======================================================== */
+
+/* Prevent horizontal overflow globally */
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Tablet & Mobile Screens (<= 991.98px) */
+@media (max-width: 991.98px) {
+    .container {
+        padding-left: 18px !important;
+        padding-right: 18px !important;
+    }
+
+    /* Stack product showcase rows (Kite, Console, Coin, Varsity, KiteConnect) */
+    .container .row > .col-8:not([class*="col-md-"]):not([class*="col-sm-"]),
+    .container .row > .col-4:not([class*="col-md-"]):not([class*="col-sm-"]),
+    .container .row > .col-6:not([class*="col-md-"]):not([class*="col-sm-"]),
+    .container .row > .col-7:not([class*="col-md-"]):not([class*="col-sm-"]),
+    .container .row > .col-5:not([class*="col-md-"]):not([class*="col-sm-"]) {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+        text-align: center;
+    }
+
+    /* Reset large inline paddings on product rows */
+    .row > div[style*="paddingRight: 70px"],
+    .row > div[style*="paddingRight: 80px"],
+    .row > div[style*="paddingLeft: 70px"],
+    .row > div[style*="paddingLeft: 80px"] {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+
+    /* Navbar Dropdown on Mobile */
+    .navbar-collapse {
+        background-color: #ffffff;
+        padding: 16px 20px;
+        margin-top: 10px;
+        border-radius: 8px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        border: 1px solid #eee;
+    }
+
+    .navbar-nav {
+        align-items: flex-start !important;
+        gap: 10px !important;
+        width: 100%;
+    }
+
+    .navbar-nav .nav-link {
+        font-size: 15px !important;
+        padding: 8px 12px !important;
+        width: 100%;
+        border-radius: 4px;
+        display: block;
+    }
+
+    .navbar-nav .nav-link:hover,
+    .navbar-nav .nav-link.active {
+        background-color: #f8fbff;
+    }
+
+    /* Store badges in product sections */
+    .d-flex[style*="gap: 70px"] {
+        justify-content: center;
+        gap: 30px !important;
+    }
+
+    .d-flex.gap-5 {
+        justify-content: center;
+        gap: 20px !important;
+    }
+
+    /* Table scrolling for pricing tables and data tables */
+    .tab-content .container,
+    .tab-pane,
+    .table-responsive {
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    table {
+        min-width: 540px;
+    }
+
+    /* Callout box responsive */
+    .callout-box {
+        width: 100% !important;
+        margin-top: 10px;
+        margin-bottom: 15px;
+    }
+}
+
+/* Mobile Phones (<= 767.98px) */
+@media (max-width: 767.98px) {
+    /* Responsive Spacings */
+    .container.p-5, .p-5 {
+        padding: 1.25rem !important;
+    }
+
+    .container.pt-5, .pt-5 {
+        padding-top: 1.5rem !important;
+    }
+
+    .mt-5 {
+        margin-top: 1.75rem !important;
+    }
+
+    .mb-5 {
+        margin-bottom: 1.75rem !important;
+    }
+
+    /* Typography scaling */
+    h1, .hero-h1 {
+        font-size: 22px !important;
+        line-height: 1.35 !important;
+    }
+
+    .hero-p {
+        font-size: 15px !important;
+        line-height: 1.4 !important;
+    }
+
+    .hero-img {
+        width: 100% !important;
+    }
+
+    .btn-hero {
+        width: 100% !important;
+        max-width: 280px !important;
+    }
+
+    /* Stats Section */
+    .stats-p {
+        font-size: 14.5px !important;
+    }
+
+    .stats-a-div {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 12px !important;
+    }
+
+    /* Pricing Section */
+    .pricing-right-col {
+        flex-direction: column !important;
+        gap: 15px !important;
+    }
+
+    .pricing-box {
+        width: 100% !important;
+    }
+
+    /* Support Page Dropdowns */
+    .support-dropdown-header {
+        min-height: 48px;
+    }
+
+    .support-dropdown-title {
+        font-size: 15px !important;
+        padding: 10px 14px !important;
+    }
+
+    .support-dropdown-body {
+        padding: 14px 18px 16px 20px !important;
+    }
+
+    .support-dropdown-icon-box {
+        width: 44px !important;
+        min-width: 44px !important;
+    }
+
+    /* Partner platform grid in ProductIcons */
+    .row.text-center[style*="paddingLeft"] {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    /* Footer adjustments */
+    .footer-logo {
+        padding-left: 0 !important;
+    }
+
+    .footer-logo img {
+        width: 130px !important;
+    }
+}
+
+/* Extra Small Devices (<= 480px) */
+@media (max-width: 480px) {
+    .btn {
+        font-size: 13px !important;
+    }
+
+    .navbar-brand img {
+        width: 115px !important;
+    }
+
+    table th, table td {
+        font-size: 12px !important;
+        padding: 6px 8px !important;
+    }
 }

@@ -38,16 +38,16 @@ const StockSection = () => {
     };
 
     return (
-        <div>
-            <div className="input-group mt-4" style={{ height: "40px", width: "94%" }}>
+        <div className="stock-section-wrapper">
+            <div className="input-group mt-3 mt-md-4 watchlist-search-group">
                 <span className="input-group-text bg-white border-end-0">
                     <i className="fa-solid fa-magnifying-glass" style={{ color: "rgb(68, 68, 68)", fontSize: "12px" }} aria-hidden="true"></i>
                 </span>
                 <input
                     type="search"
-                    className="form-control border-start-0 support-search-input me-4"
-                    placeholder="Search eg: infy base, nifty fut, index, fund, etc"
-                    aria-label="Search for help"
+                    className="form-control border-start-0 support-search-input"
+                    placeholder="Search eg: infy, nifty, tcs, sbi"
+                    aria-label="Search watchlist"
                     style={{ fontSize: "12px", color: "rgb(68, 68, 68)" }}
                 />
             </div>
@@ -56,7 +56,7 @@ const StockSection = () => {
                     <StockItems stock={stock} index={index} key={index} />
                 ))}
             </ul>
-            <div className="mt-4 pt-3 border-top pb-4" style={{ width: "94%" }}>
+            <div className="mt-4 pt-3 border-top pb-4 watchlist-chart-container">
                 <Chart data={data} />
             </div>
         </div>

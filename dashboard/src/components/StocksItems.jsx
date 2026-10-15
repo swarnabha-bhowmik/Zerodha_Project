@@ -23,6 +23,7 @@ const StockItems = ({stock, index}) => {
             className = "watchlist-item" 
             onMouseEnter = {handleMouseEnter} 
             onMouseLeave = {handleMouseExit}
+            onClick = {() => setShowStockItemActions((prev) => !prev)}
         >
             <div className = "item">
                 <p className = {`stock-name ${stock.isDown ? "loss": "profit"}`}>{stock.name}</p>

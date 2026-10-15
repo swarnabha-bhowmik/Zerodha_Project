@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { API_BASE_URL, DASHBOARD_URL } from "../../../config";
 
 const Hero = () => {
     const [formData, setFormData] = useState({
@@ -31,7 +32,7 @@ const Hero = () => {
         try
         {
             const response = await axios.post(
-                "http://localhost:8080/signup",
+                `${API_BASE_URL}/signup`,
                 {
                     user: {
                         fullName: formData.fullName,
@@ -62,7 +63,7 @@ const Hero = () => {
             });
 
             setTimeout(() => {
-                window.location.href = `http://localhost:5173?clientId=${data.user?.clientId || ""}`;
+                window.location.href = `${DASHBOARD_URL}?clientId=${data.user?.clientId || ""}`;
             }, 1500);
         }
         catch (err)
