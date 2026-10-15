@@ -23,8 +23,14 @@ module.exports.validateUser = (req, res, next) => {
     next();
 };
 
+const extractToken = (req) => {
+  const authHeader = req.headers?.authorization;
+  const bearerToken = authHeader && authHeader.startsWith("Bearer ") ? authHeader.split(" ")[1] : null;
+  return req.cookies?.token || bearerToken || req.headers?.["x-access-token"] || null;
+};
+
 module.exports.isLoggedIn = async (req, res, next) => {
-  const token = req.cookies?.token;
+  const token = extractToken(req);
 
   if (!token) {
     const clientId = req.body?.clientId || req.query?.clientId;
@@ -73,7 +79,7 @@ module.exports.isLoggedIn = async (req, res, next) => {
 };
 
 module.exports.userVerification = (req, res) => {
-  const token = req.cookies.token;
+  const token = extractToken(req);
   if (!token) {
     return res.json({ status: false });
   }

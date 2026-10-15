@@ -18,7 +18,17 @@ const {validateOrder, validateUser, userVerification, isLoggedIn} = require("./m
 const { createSecretToken } = require("./utils/SecretToken.js");
 const jwt = require("jsonwebtoken");
 
-const isProduction = process.env.NODE_ENV === "production";
+const isProduction = process.env.NODE_ENV === "production" || Boolean(process.env.RENDER) || Boolean(process.env.PORT && process.env.PORT !== "8080");
+
+const getCookieOptions = (req) => {
+  const isSecure = isProduction || req?.secure || req?.headers?.["x-forwarded-proto"] === "https";
+  return {
+    httpOnly: false,
+    sameSite: isSecure ? "none" : "lax",
+    secure: Boolean(isSecure),
+  };
+};
+
 const cookieOptions = {
   httpOnly: false,
   sameSite: isProduction ? "none" : "lax",
@@ -29,17 +39,23 @@ const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:5174",
   "http://localhost:3000",
+  "https://kite-project.vercel.app",
+  "https://zerodha-project-sigma.vercel.app",
   process.env.FRONTEND_URL,
   process.env.DASHBOARD_URL,
 ].filter(Boolean);
 
 const app = express();
+app.set("trust proxy", 1);
+
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin) return callback(null, true);
     if (
       allowedOrigins.includes(origin) ||
       origin.endsWith(".vercel.app") ||
+      origin.includes("kite-project") ||
+      origin.includes("zerodha-project-sigma") ||
       !isProduction
     ) {
       return callback(null, true);
@@ -118,10 +134,11 @@ app.post("/signup", validateUser, wrapAsync(async(req, res, next) => {
       pin: pin || "123456",
     });
     const token = createSecretToken(user._id);
-    res.cookie("token", token, cookieOptions);
+    res.cookie("token", token, getCookieOptions(req));
     res.status(201).json({
       message: "User signed in successfully",
       success: true,
+      token,
       user: {
         id: user._id,
         fullName: user.fullName,
@@ -190,12 +207,13 @@ app.post("/login", wrapAsync(async(req, res, next) => {
 
     // Authentication succeeded: User has no PIN (password-only) OR 2FA PIN was verified
     const token = createSecretToken(user._id);
-    res.cookie("token", token, cookieOptions);
+    res.cookie("token", token, getCookieOptions(req));
 
     res.status(200).json({
       message: "User logged in successfully",
       success: true,
       requires2FA: false,
+      token,
       user: {
         id: user._id,
         fullName: user.fullName,
@@ -210,7 +228,7 @@ app.post("/login", wrapAsync(async(req, res, next) => {
 }));
 
 app.post("/logout", (req, res) => {
-  res.clearCookie("token", cookieOptions);
+  res.clearCookie("token", getCookieOptions(req));
   res.status(200).json({ success: true, message: "Logged out successfully" });
 });
 
@@ -258,7 +276,7 @@ app.post("/deleteAccount", isLoggedIn, wrapAsync(async (req, res) => {
     }
   }
   await User.findByIdAndDelete(user._id);
-  res.clearCookie("token", cookieOptions);
+  res.clearCookie("token", getCookieOptions(req));
   res.status(200).json({ success: true, message: "Account deleted successfully" });
 }));
 

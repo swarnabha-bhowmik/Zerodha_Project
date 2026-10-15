@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react"
 import { NavLink, Link } from "react-router-dom"
 import axios from "axios"
-import { API_BASE_URL, DASHBOARD_URL, FRONTEND_URL } from "../config"
+import { API_BASE_URL, DASHBOARD_URL, FRONTEND_URL, getAuthHeaders } from "../config"
 
 const Navbar = () => {
     const [clientId, setClientId] = useState(() => {
@@ -26,11 +26,21 @@ const Navbar = () => {
 
     useEffect(() => {
         const params = new URLSearchParams(window.location.search);
-        if (params.get("clientId")) {
+        const qToken = params.get("token");
+        if (qToken) {
+            localStorage.setItem("authToken", qToken);
+            document.cookie = `token=${qToken}; path=/; max-age=259200; Secure; SameSite=None`;
+        }
+        if (params.get("clientId") || qToken) {
             window.history.replaceState({}, document.title, window.location.pathname);
         }
 
-        axios.post(`${API_BASE_URL}/verify`, {}, { withCredentials: true })
+        const headers = getAuthHeaders();
+        if (qToken) {
+            headers.Authorization = `Bearer ${qToken}`;
+        }
+
+        axios.post(`${API_BASE_URL}/verify`, {}, { withCredentials: true, headers })
             .then((res) => {
                 if (res.data && res.data.status) {
                     setIsLoggedIn(true);
@@ -38,7 +48,7 @@ const Navbar = () => {
                         setClientId(res.data.clientId);
                         localStorage.setItem("clientId", res.data.clientId);
                     }
-                    const name = res.data.user || "";
+                    const name = res.data.user || res.data.fullName || "";
                     const email = res.data.email || "";
                     const funds = res.data.funds ?? 100000;
                     setUserData({ name, email, funds });
@@ -67,11 +77,12 @@ const Navbar = () => {
     const handleLogout = async () => {
         setIsDropdownOpen(false);
         try {
-            await axios.post(`${API_BASE_URL}/logout`, {}, { withCredentials: true });
+            await axios.post(`${API_BASE_URL}/logout`, {}, { withCredentials: true, headers: getAuthHeaders() });
         } catch {
             // Ignore error if server is unreachable
         }
         document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        localStorage.removeItem("authToken");
         localStorage.removeItem("clientId");
         localStorage.removeItem("userName");
         localStorage.removeItem("userEmail");

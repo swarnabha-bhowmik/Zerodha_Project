@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import StockSection from "../components/StockSection";
-import { API_BASE_URL, DASHBOARD_URL, FRONTEND_URL } from "../config";
+import { API_BASE_URL, DASHBOARD_URL, FRONTEND_URL, getAuthHeaders } from "../config";
 
 const Profile = () => {
     const [profile, setProfile] = useState({
@@ -33,7 +33,7 @@ const Profile = () => {
     const [deleteError, setDeleteError] = useState("");
 
     useEffect(() => {
-        axios.post(`${API_BASE_URL}/verify`, {}, { withCredentials: true })
+        axios.post(`${API_BASE_URL}/verify`, {}, { withCredentials: true, headers: getAuthHeaders() })
             .then((res) => {
                 if (res.data && res.data.status) {
                     setIsLoggedIn(true);
@@ -59,11 +59,12 @@ const Profile = () => {
 
     const handleLogout = async () => {
         try {
-            await axios.post(`${API_BASE_URL}/logout`, {}, { withCredentials: true });
+            await axios.post(`${API_BASE_URL}/logout`, {}, { withCredentials: true, headers: getAuthHeaders() });
         } catch {
             // ignore
         }
         document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        localStorage.removeItem("authToken");
         localStorage.removeItem("clientId");
         localStorage.removeItem("userName");
         localStorage.removeItem("userEmail");
@@ -97,7 +98,7 @@ const Profile = () => {
                     currentPin: pinForm.currentPin,
                     newPin: pinForm.newPin,
                 },
-                { withCredentials: true }
+                { withCredentials: true, headers: getAuthHeaders() }
             );
 
             if (res.data.success) {
@@ -138,7 +139,7 @@ const Profile = () => {
                     currentPassword: passwordForm.currentPassword,
                     newPassword: passwordForm.newPassword,
                 },
-                { withCredentials: true }
+                { withCredentials: true, headers: getAuthHeaders() }
             );
 
             if (res.data.success) {
@@ -166,12 +167,13 @@ const Profile = () => {
                     clientId: profile.clientId,
                     password: deletePassword,
                 },
-                { withCredentials: true }
+                { withCredentials: true, headers: getAuthHeaders() }
             );
 
             if (res.data.success) {
                 // Clear session and storage
                 document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                localStorage.removeItem("authToken");
                 localStorage.removeItem("clientId");
                 localStorage.removeItem("userName");
                 localStorage.removeItem("userEmail");

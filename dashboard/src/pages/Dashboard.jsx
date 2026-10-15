@@ -4,7 +4,7 @@ import axios from "axios";
 import StockSection from "../components/StockSection";
 import { Chart } from "../components/Chart";
 import { holdings as initialHoldings, positions as initialPositions } from "../data.js";
-import { API_BASE_URL, FRONTEND_URL } from "../config";
+import { API_BASE_URL, FRONTEND_URL, getAuthHeaders } from "../config";
 
 const Dashboard = () => {
     const [userName, setUserName] = useState(() => localStorage.getItem("userName") || "");
@@ -21,7 +21,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         // Verify user session & details
-        axios.post(`${API_BASE_URL}/verify`, {}, { withCredentials: true })
+        axios.post(`${API_BASE_URL}/verify`, {}, { withCredentials: true, headers: getAuthHeaders() })
             .then((res) => {
                 if (res.data && res.data.status) {
                     setIsLoggedIn(true);

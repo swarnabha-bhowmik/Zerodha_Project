@@ -59,10 +59,20 @@ const Login = () => {
             }
 
             // Case B: User has no PIN configured -> logged in directly via password
+            if (data.token) {
+                localStorage.setItem("authToken", data.token);
+            }
+            if (data.user?.clientId) {
+                localStorage.setItem("clientId", data.user.clientId);
+            }
+            if (data.user?.fullName) {
+                localStorage.setItem("userName", data.user.fullName);
+            }
             setSuccess(`Welcome back, ${data.user?.fullName || "trader"}! Redirecting to Kite...`);
             setTimeout(() => {
-                window.location.href = `${DASHBOARD_URL}?clientId=${data.user?.clientId || ""}`;
-            }, 1200);
+                const tokenParam = data.token ? `&token=${encodeURIComponent(data.token)}` : "";
+                window.location.href = `${DASHBOARD_URL}?clientId=${data.user?.clientId || ""}${tokenParam}`;
+            }, 1000);
         } catch (err) {
             setError(err.response?.data?.message || err.message || "Invalid credentials. Please try again.");
         } finally {
@@ -100,10 +110,21 @@ const Login = () => {
                 throw new Error(data.message || "2FA verification failed.");
             }
 
+            if (data.token) {
+                localStorage.setItem("authToken", data.token);
+            }
+            if (data.user?.clientId) {
+                localStorage.setItem("clientId", data.user.clientId);
+            }
+            if (data.user?.fullName) {
+                localStorage.setItem("userName", data.user.fullName);
+            }
+
             setSuccess(`2FA Verified! Welcome, ${data.user?.fullName || "trader"}. Redirecting to Kite...`);
             setTimeout(() => {
-                window.location.href = `${DASHBOARD_URL}?clientId=${data.user?.clientId || ""}`;
-            }, 1200);
+                const tokenParam = data.token ? `&token=${encodeURIComponent(data.token)}` : "";
+                window.location.href = `${DASHBOARD_URL}?clientId=${data.user?.clientId || ""}${tokenParam}`;
+            }, 1000);
         } catch (err) {
             setError(err.response?.data?.message || err.message || "Incorrect PIN. Please try again.");
         } finally {

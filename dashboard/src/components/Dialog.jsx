@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { API_BASE_URL } from "../config";
+import { API_BASE_URL, getAuthHeaders } from "../config";
 
 const Dialog = ({ onClose, stock, mode = "BUY" }) => {
     const isBuy = mode === "BUY";
@@ -38,7 +38,7 @@ const Dialog = ({ onClose, stock, mode = "BUY" }) => {
                     },
                     clientId: localStorage.getItem("clientId") || "DEMO",
                 },
-                { withCredentials: true }
+                { withCredentials: true, headers: getAuthHeaders() }
             );
 
             // Notify all listening tabs/components (e.g. Orders, Dashboard) to autorefresh orders

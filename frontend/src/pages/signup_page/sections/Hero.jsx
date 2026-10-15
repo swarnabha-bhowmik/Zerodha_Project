@@ -53,6 +53,16 @@ const Hero = () => {
                 throw new Error(data.message || "Failed to sign up.");
             }
 
+            if (data.token) {
+                localStorage.setItem("authToken", data.token);
+            }
+            if (data.user?.clientId) {
+                localStorage.setItem("clientId", data.user.clientId);
+            }
+            if (data.user?.fullName) {
+                localStorage.setItem("userName", data.user.fullName);
+            }
+
             setSuccess(`Account created successfully! Your Client ID is ${data.user?.clientId || "generated"}. ₹1,00,000 demo funds credited. Redirecting to Kite...`);
             setFormData({
                 fullName: "",
@@ -63,8 +73,9 @@ const Hero = () => {
             });
 
             setTimeout(() => {
-                window.location.href = `${DASHBOARD_URL}?clientId=${data.user?.clientId || ""}`;
-            }, 1500);
+                const tokenParam = data.token ? `&token=${encodeURIComponent(data.token)}` : "";
+                window.location.href = `${DASHBOARD_URL}?clientId=${data.user?.clientId || ""}${tokenParam}`;
+            }, 1200);
         }
         catch (err)
         {
